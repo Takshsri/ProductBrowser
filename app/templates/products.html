@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Browser</title>
+
+    <style>
+        table{
+            border-collapse:collapse;
+            width:100%;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:8px;
+        }
+
+        th{
+            background:#f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Products</h2>
+<h3>Total Products Displayed: {{ products|length }}</h3>
+<form method="get">
+
+    <select name="category">
+        <option value="">All Categories</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Fashion">Fashion</option>
+        <option value="Books">Books</option>
+        <option value="Sports">Sports</option>
+        <option value="Home">Home</option>
+        <option value="Toys">Toys</option>
+        <option value="Beauty">Beauty</option>
+        <option value="Automotive">Automotive</option>
+    </select>
+
+    <button type="submit">
+        Filter
+    </button>
+
+</form>
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Updated At</th>
+</tr>
+
+{% for product in products %}
+<tr>
+    <td>{{ product.id }}</td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.category }}</td>
+    <td>{{ product.updated_at }}</td>
+</tr>
+{% endfor %}
+
+</table>
+{% if next_cursor %}
+
+<div style="margin-top:20px;">
+
+<a href="/?category={{category}}&cursor_updated_at={{next_cursor.updated_at}}&cursor_id={{next_cursor.id}}">
+    Next Page →
+</a>
+
+</div>
+
+{% endif %}
+
+</body>
+</html>
